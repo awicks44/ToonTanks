@@ -27,6 +27,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void HandleDestruction();
+
+	APlayerController * GetTankPlayerController() const { return TankPlayerController; };
+
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Toon Tanks | Components")
 	class UCameraComponent * Camera;
@@ -40,7 +44,7 @@ private:
 	UPROPERTY(EditAnywhere,  Category = "Toon Tanks | Components")
 	float TurnRate = 45.f;
 
-	APlayerController * PlayerController;
+	APlayerController * TankPlayerController;
 
 	void Move(float Value);
 	void Turn(float Value);

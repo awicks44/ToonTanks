@@ -14,8 +14,12 @@ class TOONTANKS_API ABasePawn : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ABasePawn();
+	void HandleDestruction();
 
 
+protected:
+	void RotateTurret(FVector LookAtTarget);
+	void Fire();
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Toon Tanks | Components")
@@ -29,5 +33,11 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Toon Tanks | Components")
 	USceneComponent * ProjectileSpawnPoint;
+
+	UPROPERTY(EditAnywhere, Category = "Toon Tanks | Components")
+	float RotationSpeed = 5.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Toon Tanks | Components")
+	TSubclassOf<class AProjectile> ProjectileClass; // this allows us to have a C++ variable that represents a class type. The type can be based on a project 
 
 };
