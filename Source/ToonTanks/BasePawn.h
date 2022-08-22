@@ -37,6 +37,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Toon Tanks | Components")
 	float RotationSpeed = 5.f;
 
+	UPROPERTY(EditAnywhere, Category = "Toon Tanks | Components")
+	class UParticleSystem * DeathParticles;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Toon Tanks | Components")
 	TSubclassOf<class AProjectile> ProjectileClass; // this allows us to have a C++ variable that represents a class type. The type can be based on a project 
 
