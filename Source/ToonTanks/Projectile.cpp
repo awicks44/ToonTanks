@@ -6,6 +6,7 @@
 #include "GameFramework/DamageType.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Sound/SoundBase.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -30,6 +31,12 @@ void AProjectile::BeginPlay()
 	Super::BeginPlay();
 
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+
+	if (LaunchSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation());
+	}
+	
 	
 }
 
@@ -60,9 +67,17 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor * OtherActor, UPrim
 		// calling this will trigger the OnTakeAnyDamage multicast delegate which will call our DamageTaken
 		// event in our HealthComponent since it's bounded
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
+		if (HitSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
+		}		
 		if (HitParticles)
 		{
 			UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles, GetActorLocation(), GetActorRotation());
+		}
+		if (HitCameraShakeClass)
+		{
+			GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(HitCameraShakeClass);
 		}
 		
 	}

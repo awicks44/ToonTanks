@@ -6,6 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
 #include "Projectile.h"
+#include "Sound/SoundBase.h"
 
 // Sets default values
 ABasePawn::ABasePawn()
@@ -49,6 +50,16 @@ void ABasePawn::HandleDestruction()
 	if (DeathParticles)
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DeathParticles, GetActorLocation(), GetActorRotation());
+	}
+
+	if (DeathSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
+	}
+
+	if (DeathCameraShakeClass)
+	{
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(DeathCameraShakeClass);
 	}
 }
 

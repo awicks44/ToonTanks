@@ -43,4 +43,8 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Toon Tanks | Components")
 	TSubclassOf<class AProjectile> ProjectileClass; // this allows us to have a C++ variable that represents a class type. The type can be based on a project 
 
-};
+	UPROPERTY(EditAnywhere, Category = "Toon Tanks | Components")
+	class USoundBase * DeathSound;
+
+	UPROPERTY(EditAnywhere, Category = "Toon Tanks | Components")
+	TSubclassOf<class UCameraShakeBase>  DeathCameraShakeClass;};
